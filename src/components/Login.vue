@@ -20,7 +20,7 @@
 // 引入axios
 import axios from 'axios'
 export default {
-  data () {
+  data() {
     return {
       form: {
         username: '',
@@ -33,18 +33,23 @@ export default {
         ],
         password: [
           { required: true, message: '密码不能为空', trigger: 'change' },
-          { min: 6, max: 12, message: '长度在 6 到 12 个字符', trigger: 'change' }
+          {
+            min: 6,
+            max: 12,
+            message: '长度在 6 到 12 个字符',
+            trigger: 'change'
+          }
         ]
       }
     }
   },
   methods: {
-    reset () {
+    reset() {
       // 重置表单
       this.$refs.form.resetFields()
     },
-    login () {
-      this.$refs.form.validate((valid) => {
+    login() {
+      this.$refs.form.validate(valid => {
         // 说明没有校验成功就直接给阻止掉
         if (!valid) return false
         // 校验成功，发送ajax请求，请求数据
@@ -74,7 +79,6 @@ export default {
       })
       console.log('submit!!')
     }
-
   }
 }
 </script>
@@ -85,7 +89,7 @@ export default {
   height: 100%;
   background-color: #2d434c;
   overflow: hidden;
-  .el-form{
+  .el-form {
     width: 400px;
     height: 300px;
     background-color: #fff;
@@ -93,7 +97,7 @@ export default {
     margin: 200px auto;
     padding: 75px 40px 15px;
     position: relative;
-    img{
+    img {
       width: 120px;
       height: 120px;
       position: absolute;
