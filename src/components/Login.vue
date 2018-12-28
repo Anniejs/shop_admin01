@@ -6,7 +6,7 @@
         <el-input v-model="form.username" placeholder="请输入用户名"></el-input>
      </el-form-item>
      <el-form-item label="密码" prop='password'>
-        <el-input v-model="form.password" placeholder="请输入密码" type='password'></el-input>
+        <el-input @keyup.enter.native='login' v-model="form.password" placeholder="请输入密码" type='password'></el-input>
      </el-form-item>
      <el-form-item>
         <el-button type="primary" @click="login">登录</el-button>
@@ -18,7 +18,7 @@
 
 <script>
 // 引入axios
-import axios from 'axios'
+// import axios from 'axios'
 export default {
   data() {
     return {
@@ -53,13 +53,13 @@ export default {
         // 说明没有校验成功就直接给阻止掉
         if (!valid) return false
         // 校验成功，发送ajax请求，请求数据
-        axios({
+        this.axios({
           method: 'post',
           url: 'http://localhost:8888/api/private/v1/login',
           data: this.form
         }).then(res => {
-          console.log(res.data)
-          if (res.data.meta.status === 200) {
+          // console.log(res.data)
+          if (res.meta.status === 200) {
             // 说明登录是成功的
             // 显示登录成功的提示信息
             this.$message({
@@ -69,11 +69,11 @@ export default {
             })
             // 实现状态保持
             // 1-把token给存到localstroage里面
-            localStorage.setItem('token', res.data.data.token)
+            localStorage.setItem('token', res.data.token)
             // 2- 转到首页组件
             this.$router.push('/home')
           } else {
-            this.$message.error(res.data.meta.msg)
+            this.$message.error(res.meta.msg)
           }
         })
       })
